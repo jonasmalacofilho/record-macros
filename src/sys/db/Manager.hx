@@ -317,7 +317,11 @@ class Manager<T : Object> {
 
 	function doSerialize( field : String, v : Dynamic ) : haxe.io.Bytes {
 		var s = new haxe.Serializer();
+#if RECORD_MACROS_USE_ENUM_NAME
+		s.useEnumIndex = false;
+#else
 		s.useEnumIndex = true;
+#end
 		s.serialize(v);
 		var str = s.toString();
 		#if neko
